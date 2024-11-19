@@ -8,7 +8,19 @@ FILENAME="version.txt"
 
 # Add the directory to Git's safe list
 git config --global --add safe.directory "$LOCAL_DIR"
+retry_count=0
+max_retries=5
+while [ $retry_count -lt $max_retries ]; do
+    rm -rf "$LOCAL_DIR" && break
+    retry_count=$((retry_count + 1))
+    echo "Retrying to remove directory... ($retry_count/$max_retries)"
+    sleep 2
+done
 
+if [ $retry_count -eq $max_retries ]; then
+    echo "Failed to remove directory after $max_retries attempts. Exiting."
+    exit 1
+fi
 # Clean up any existing directory
 rm -rf "$LOCAL_DIR"
 
