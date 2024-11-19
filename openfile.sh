@@ -6,6 +6,9 @@ BRANCH="main"  # Update this to your actual branch name
 LOCAL_DIR="C:/Users/kkoppula/OneDrive - e2open, LLC/Desktop/script/versionfiles"  # Specified directory for cloning
 FILENAME="version.txt"
 
+# Add the directory to Git's safe list
+git config --global --add safe.directory "$LOCAL_DIR"
+
 # Clean up any existing directory
 rm -rf "$LOCAL_DIR"
 
